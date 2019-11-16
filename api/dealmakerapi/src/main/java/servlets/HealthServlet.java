@@ -11,6 +11,7 @@ public class HealthServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String json = "{\"status\":\"alive\"}";
+		response.setContentType("application/json");
 		response.getOutputStream().println(json);
 	}
 	

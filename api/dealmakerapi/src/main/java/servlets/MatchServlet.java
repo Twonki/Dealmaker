@@ -26,7 +26,8 @@ public class MatchServlet extends HttpServlet {
 		String json = "[";
 		json += matches.stream().map(x -> x.toJSON()).collect(Collectors.joining(",\n"));
 		json += "]";
-		
+
+		response.setContentType("application/json");
 		response.getOutputStream().println(json);
 		
 	}

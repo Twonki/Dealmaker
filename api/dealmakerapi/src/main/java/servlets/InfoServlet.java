@@ -19,7 +19,8 @@ public class InfoServlet extends HttpServlet {
 		String acc = requestUrl.substring("/info/".length());
 		
 		Match info = getInfo(acc);
-		
+
+		response.setContentType("application/json");
 		response.getOutputStream().println(info.toJSON());
 		
 	}

@@ -22,7 +22,8 @@ public class DealServlet extends HttpServlet {
 		String json = "[";
 		json += deals.stream().map(x -> "{\"acc\":\""+x+"\"}").collect(Collectors.joining(",\n"));
 		json += "]";
-		
+
+		response.setContentType("application/json");
 		response.getOutputStream().println(json);
 		
 	}
