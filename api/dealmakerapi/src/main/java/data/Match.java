@@ -16,13 +16,13 @@ public class Match {
 		json += "\"account\":\""+account+"\",\n";
 		json += "\"firstname\":\""+firstname+"\",\n";
 		json += "\"score\":"+score+",\n";
-		json += "\"category\":[\n";
+		json += "\"category\":{\n";
 		json += 
 			categories.entrySet().stream()
-			.map(e -> "{\t\"name\":\""+e.getKey()+"\",\n\t\"percent\":" + e.getValue()+"\n}")
+			.map(e -> "\""+e.getKey()+"\":" + e.getValue())
 			.collect( Collectors.joining( ",\n" ) );
 		
-		json += "] \n }";
+		json += "} \n }";
 		return json;
 	}
 	
