@@ -19,9 +19,7 @@ public class Repository {
 	
 	public static void connect() {
         try {
-            // db parameters
             String url = "jdbc:sqlite:"+pathToSQLLite;
-            // create a connection to the database
             conn = DriverManager.getConnection(url);
             
             System.out.println("Connection to SQLite has been established.");
