@@ -17,7 +17,7 @@ public class InfoServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		String requestUrl = request.getRequestURI();
-		String acc = requestUrl.substring("/info/".length());
+		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/info/".length());
 		
 		Match info = getInfo(acc);
 

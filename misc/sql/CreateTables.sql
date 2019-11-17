@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS deals(
 CREATE VIEW IF NOT EXISTS categoryspending AS 
 SELECT accountId, category, sum(amount) as categoryamount
 FROM transactions
-WHERE tstatus="Successful"
 GROUP BY accountId, category
 ORDER BY accountId ASC;
 
@@ -53,3 +52,12 @@ CREATE TABLE IF NOT EXISTS bets (
 	offer FLOAT,
 	demand FLOAT
 );
+
+CREATE VIEW IF NOT EXISTS pairs AS 
+SELECT a.betid as betid, a.accountId as accountA, b.accountId as accountB
+FROM bets as a LEFT OUTER JOIN bets as b
+WHERE 
+	a.betid = b.betid
+AND 
+	a.accountId != b.accountId
+AND b.accountId IS NOT NULL;

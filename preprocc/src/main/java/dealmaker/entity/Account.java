@@ -124,9 +124,8 @@ public class Account {
     }
 
     public String insertStatement(){
-        String params = accountId_int + ",\'"+firstname+"\'"+",\'"+lastname+"\',"+age+",\'"+gender+"\'"+",\'"+phoneNumber+"\'"+",\'"+developerId+"\',"+uci_int+
-                ","+riskScore+",\'"+currencyCode+"\'"+",\'"+productType+"\'"+",\'"+homeAddress+"\'";
-        return "insert into accounts(paramname,paramname,paramname) values("+params+");";
-
+        String params = accountId_int + ",\'"+firstname+"\'"+",\'"+lastname+"\',"+age+",\'"+homeAddress+"\'";
+        String stmt = "insert into accounts(accountId,firstname,lastname,age,homeAddress) values("+params+");";
+        return stmt;
 
     }}

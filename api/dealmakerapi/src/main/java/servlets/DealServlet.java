@@ -17,7 +17,7 @@ public class DealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		String requestUrl = request.getRequestURI();
-		String acc = requestUrl.substring("/deals/".length());
+		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/deals/".length());
 		var accId  =Integer.parseInt(acc);
 		
 		List<String> deals = getClosedDeals(acc);
@@ -52,7 +52,7 @@ public class DealServlet extends HttpServlet {
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		String requestUrl = request.getRequestURI();
-		String acc = requestUrl.substring("/deals/".length());
+		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/deals/".length());
 		
 		String deal = request.getParameter("acc");
 		

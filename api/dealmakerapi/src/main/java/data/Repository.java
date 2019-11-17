@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,10 +18,16 @@ public class Repository {
 	
 	public static String pathToSQLLite = "";
 	static Connection conn = null;
-	
+	static String url = "jdbc:sqlite:/usr/db/dealMaker.db";
+    
 	public static void connect() {
         try {
-            String url = "jdbc:sqlite:"+pathToSQLLite;
+        	try {
+				Class.forName("org.sqlite.JDBC");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             conn = DriverManager.getConnection(url);
             
             System.out.println("Connection to SQLite has been established.");
@@ -32,15 +39,18 @@ public class Repository {
 	
 	public static String lookupFirstName(int accId) {
 		String fn = "Unkown";
+		if(accId == 0)
+			return fn;
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT firstname FROM accounts WHERE accountId=?");
-			stmt.setInt(0, accId);
-			var res = stmt.executeQuery();
-			fn = res.getString("firstname");
+			
+			var mstmt = conn.prepareStatement("SELECT firstname FROM accounts WHERE accountId="+accId);
+			var res = mstmt.executeQuery();
+			if(res.next()) {
+				fn = res.getString("firstname");
+			}
 			res.close();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,12 +65,14 @@ public class Repository {
 		List<Integer> accs = raw.stream().map(x->x.getValue0()).collect(Collectors.toList());
 		
 		accs.removeIf(x->x==acc);
+		var accs2 = (new HashSet<Integer>());
+		accs2.addAll(accs);
 		Map<String,Double> accSpending = getCategorySpendings(acc);
 	
-		return accs.stream()
+		return (Map<Integer, Double>) accs2.stream()
 			.map(a -> Pair.with(a,getCategorySpendings(a)))
 			.map(ap -> Pair.with(ap.getValue0(), categoryDistance(ap.getValue1(),accSpending)))
-			.sorted((a,b) -> Double.compare(a.getValue1(), b.getValue1()))
+			.sorted((a,b) -> {return Double.compare(b.getValue1(), a.getValue1());})
 			.collect(Collectors.toMap(x->x.getValue0(), x->x.getValue1()));
 	}
 	
@@ -106,16 +118,15 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT accountId, totalamount FROM totalspending");
+			var stmt = conn.prepareStatement("SELECT accountId, totalamount FROM totalspending;");
 			var res = stmt.executeQuery();
-			do {
+			while (res.next()) {
 				var acc = res.getInt("accountId");
 				var amt = res.getDouble("totalamount");
 				spendings.put(acc, amt);
 			}
-			while(res.next());
 			res.close();
-			conn.close();
+			 ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,15 +141,13 @@ public class Repository {
 		try {
 			var stmt = conn.prepareStatement("SELECT accountId, category,categoryamount FROM categoryspending");
 			var res = stmt.executeQuery();
-			do {
+			while (res.next()) {
 				var acc = res.getInt("accountId");
 				var cat = res.getString("category");
 				var amt = res.getDouble("categoryamount");
 				spendings.add(Triplet.with(acc,cat, amt));
 			}
-			while(res.next());
 			res.close();
-			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -156,7 +165,7 @@ public class Repository {
 			stmt.setInt(acc, betid);
 			var res = stmt.executeQuery();
 			res.close();
-			conn.close();
+			 ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,9 +176,11 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT offer,demand FROM bets where betid=? ");
-			stmt.setInt(0, betid);
+			var stmt = conn.prepareStatement("SELECT offer,demand FROM bets where betid="+betid);
+			//stmt.setInt(0, betid);
+			
 			var res = stmt.executeQuery();
+			res.next();
 			var offerA = res.getDouble("offer");
 			var demandA = res.getDouble("demand");
 			res.next();
@@ -177,7 +188,7 @@ public class Repository {
 			var demandB = res.getDouble("demand");
 			
 			res.close();
-			conn.close();
+			 ;
 			
 			return offerA>demandB && offerB>demandA;
 			
@@ -192,16 +203,16 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT accountId FROM bets where betId =?");
-			stmt.setInt(0, betid);
+			var stmt = conn.prepareStatement("SELECT accountId FROM bets where betId ="+betid);
 			
 			var res = stmt.executeQuery();
+			res.next();
 			var accA = res.getInt("accountId");
 			res.next();
 			var accB = res.getInt("accountId");
 			
 			res.close();
-			conn.close();
+			 ;
 			
 			return Pair.with(accA, accB);
 			
@@ -218,13 +229,12 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT dealer FROM deals where dealed =?");
-			stmt.setInt(0, accountId);
+			var stmt = conn.prepareStatement("SELECT dealer FROM deals where dealed ="+accountId);
 			
 			var res = stmt.executeQuery();
-			do {
+			while (res.next()) {
 				results.add(res.getInt("dealer"));
-			} while (res.next());			
+			}			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -238,13 +248,12 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT dealed FROM deals where dealer =?");
-			stmt.setInt(0, accountId);
+			var stmt = conn.prepareStatement("SELECT dealed FROM deals where dealer ="+accountId);
 			
 			var res = stmt.executeQuery();
-			do {
+			while (res.next()) {
 				results.add(res.getInt("dealed"));
-			} while (res.next());			
+			};			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -261,10 +270,13 @@ public class Repository {
 					// do nuffing
 				}
 				else {
+					int someBets = (int) Math.round(Math.random()*50000);
 					var stmt = conn.prepareStatement(
-							"INSERT INTO bets (accountId) VALUES (?),(?)");
-					stmt.setInt(0,accId);
-					stmt.setInt(1, b);
+							"INSERT INTO bets (betid,accountId) VALUES (?,?),(?,?)");
+					stmt.setInt(0,someBets);
+					stmt.setInt(1, accId);
+					stmt.setInt(2, someBets);
+					stmt.setInt(3, b);
 					var res = stmt.execute();
 				}
 			}
@@ -311,12 +323,7 @@ public class Repository {
 			e.printStackTrace();
 		}
 		finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
 		
 		return false;
@@ -327,13 +334,12 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT betid FROM bets where accountId =?");
-			stmt.setInt(0, acc);
+			var stmt = conn.prepareStatement("SELECT betid FROM bets where accountId ="+acc);
 			
 			var res = stmt.executeQuery();
-			do {
+			while (res.next()) {
 				betids.add(res.getInt("betid"));
-			} while (res.next());			
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -345,13 +351,12 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT betid FROM bets where accountId =? AND offer IS NULL OR demand IS NULL");
-			stmt.setInt(0, acc);
+			var stmt = conn.prepareStatement("SELECT betid FROM bets where accountId = "+acc+" AND offer IS NULL OR demand IS NULL");
 			
 			var res = stmt.executeQuery();
-			do {
+			while (res.next()) {
 				betids.add(res.getInt("betid"));
-			} while (res.next());			
+			} 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

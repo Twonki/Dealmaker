@@ -43,10 +43,11 @@ GROUP BY accountId, category;
 
 CREATE VIEW IF NOT EXISTS totalspending AS
 SELECT accountId, sum(amount) as totalamount
-FROM transactions;
+FROM transactions
+GROUP BY accountId;
 
 CREATE TABLE IF NOT EXISTS bets (
-	betid INTEGER PRIMARY KEY AUTOINCREMENT,
+	betid INTEGER,
 	accountId INTEGER,
 	offer FLOAT,
 	demand FLOAT

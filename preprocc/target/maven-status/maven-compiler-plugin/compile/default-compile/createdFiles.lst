@@ -1,8 +1,9 @@
-dealmaker/CapitalOneHttpClient$2.class
-dealmaker/CapitalOneHttpClient.class
-dealmaker/MyUtil.class
-dealmaker/CapitalOneHttpClient$1.class
-dealmaker/ObjectLoader.class
-dealmaker/entity/Account.class
-dealmaker/entity/Transaction.class
+dealmaker\entity\Transaction.class
+dealmaker\DataUpload.class
+dealmaker\CapitalOneHttpClient$2.class
+dealmaker\entity\Account.class
+dealmaker\ObjectLoader.class
+dealmaker\CapitalOneHttpClient$1.class
 Application.class
+dealmaker\CapitalOneHttpClient.class
+dealmaker\MyUtil.class

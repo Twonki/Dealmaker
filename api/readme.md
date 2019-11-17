@@ -36,3 +36,5 @@ Where *XXX* is the AccountID
 'get $ /bets/XXX' -> Gets an JSON with open and successfull bets
 
 'put $ /bets/XXX?betid=ZZZ&offer=123&demand=321' -> Enters the offer and demand into db
+
+Valid account: 73320507

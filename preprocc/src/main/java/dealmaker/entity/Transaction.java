@@ -92,9 +92,10 @@ public class Transaction {
     }
 
     public String insertStatement(){
-        String params = "\'"+transactionUUID+"\'," +accountId_int+","+amount+",\'"+currency+"\',"+timestamp_date+","+latitude+","+longitude+
+        String params = "\'"+transactionUUID+"\'," +accountId_int+","+amount+",\'"+currency+"\',\'"+timestamp_date+"\',"+latitude+","+longitude+
                 ",\'"+status+"\'"+",\'"+catagory+"\'";
-        return "insert into transactions values("+params+");";
+        var stmt = "insert into transactions values("+params+");";
+        return stmt;
 
     }
 

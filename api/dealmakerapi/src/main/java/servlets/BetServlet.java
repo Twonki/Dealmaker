@@ -20,7 +20,7 @@ public class BetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		String requestUrl = request.getRequestURI();
-		String acc = requestUrl.substring("/bets/".length());
+		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/bets/".length());
 		int accId = Integer.parseInt(acc);
 		
 		List<Integer> openBets = Repository.getOpenBetsForAccount(accId);
@@ -54,7 +54,7 @@ public class BetServlet extends HttpServlet {
 	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String requestUrl = request.getRequestURI();
-		String acc = requestUrl.substring("/bets/".length());
+		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/bets/".length());
 		
 		var accId = Integer.parseInt(acc);
 		var bet = Integer.parseInt(request.getParameter("betid"));

@@ -12,18 +12,24 @@ public class DataUpload {
         try
         {
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:deakMaker.db");
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
-            statement.executeUpdate(MyUtil.readsql());
+            connection = DriverManager.getConnection("jdbc:sqlite:dealMaker.db");
+            
+            //var ostmt = connection.createStatement();
+            //ostmt.exe;
+            //ostmt.close();
 
             for(Account a: accounts){
-                statement.executeUpdate(a.insertStatement());
+            	var istmt = connection.prepareStatement(a.insertStatement());
+            	istmt.execute();
+            	istmt.close();
+            	
                 for (Transaction t: a.getTransactions()){
-                    statement.executeUpdate(t.insertStatement());
+                	var tstmt = connection.prepareStatement(t.insertStatement());
+                    tstmt.execute();
+                    tstmt.close();
                 }
             }
+            /*
             ResultSet rs = statement.executeQuery("select * from accounts");
             ResultSet rs2 = statement.executeQuery("select * from transactions");
             int rsCount = 1;
@@ -45,12 +51,13 @@ public class DataUpload {
             System.out.println("==================================================");
             System.out.println("number of accounts:" +rsCount);
             System.out.println("number of transactions:" +rs2Count);
+            */
         }
         catch(SQLException e)
         {
             // if the error message is "out of memory",
             // it probably means no database file is found
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
         finally
         {
@@ -61,8 +68,7 @@ public class DataUpload {
             }
             catch(SQLException e)
             {
-                // connection close failed.
-                System.err.println(e.getMessage());
+            	e.printStackTrace();
             }
         }
     }
