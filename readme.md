@@ -6,9 +6,9 @@
 A brand-new fin-tech approach to a match-making app.
 Deal Maker takes away the awkwardness on discussing the touchy subject of personal finance in dating.
 
-Apart from the traditional matching criteria in main-stream dating apps (e.g. age / geo location), our matching algorithm bases on an overview of a users spending habits to determine the compatibility between other users on the platform.
+Apart from the traditional matching criteria in main-stream dating apps (e.g. age / geo location), our matching algorithm bases on an overview of a user's spending habits to determine the compatibility between one and another on the platform.
 Deal Maker will challenge a user and their potential partner with a little test before they are off to their first date.
-The cost and the division of a first date must be agreed upon the matchees found their compatible profile.
+The cost and the ways to divide on a first date must be agreed upon the matchee finding a compatible profile.
 
 ## Getting Started
 
@@ -16,12 +16,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 ### Prerequisites
-You will need:
-Mobile App Component
+Mobile App Component：
 - Android Studio
 - Java SDK 1.8
 
-Data Integration Component
+Data Integration Component：
 - Capital One Hackathon Developer API (with a valid Bearer token)
 - Java SDK 1.8
 - SQLite
@@ -62,7 +61,7 @@ There is no further setup needed, if the sample dataset is enough.
 ## Authors
 
 * **Morgan David**,**Leonhard Applis**,**Nicola Wong*** @[HackNotts2019](https://www.hacknotts.com/)
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Twonki/Dealmaker/contributors) who participated in this project.
 
 ## Acknowledgments
 
