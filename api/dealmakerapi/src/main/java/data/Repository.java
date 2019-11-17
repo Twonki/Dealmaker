@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
@@ -61,6 +62,17 @@ public class Repository {
 			.map(ap -> Pair.with(ap.getValue0(), categoryDistance(ap.getValue1(),accSpending)))
 			.sorted((a,b) -> Double.compare(a.getValue1(), b.getValue1()))
 			.collect(Collectors.toMap(x->x.getValue0(), x->x.getValue1()));
+	}
+	
+	public static Optional<String> mostSharedCategory(Map<String,Double> a, Map<String,Double> b) {
+		var u = a.keySet();
+		u.addAll(b.keySet());
+		return u.stream()
+			.map(k -> Pair.with(k, Math.abs(a.getOrDefault(k,0.0)-b.getOrDefault(k,0.0))))
+			.sorted((t,z)-> Double.compare(t.getValue1(), z.getValue1()))
+			.limit(1)
+			.map(Pair::getValue0)
+			.findFirst();
 	}
 	
 	public static Map<String,Double> getCategorySpendings(int acc){
