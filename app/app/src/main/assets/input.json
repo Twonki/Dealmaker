@@ -1,0 +1,24 @@
+[{
+  "name": "morgan",
+  "id": 12345,
+  "score":0.4,
+  "category": {
+    "health and fitness": 20,
+    "Car": 20,
+    "Gaming": 20,
+    "Hair and beuty": 20,
+    "Supermarket": 20
+  }
+},
+{
+  "name": "david",
+  "id": 12345,
+  "score":0.4,
+  "category": {
+    "health and fitness": 80,
+    "Car": 5,
+    "Gaming": 5,
+    "Hair and beuty": 5,
+    "Supermarket": 5
+  }
+}]

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="370dp"
+    android:layout_height="400dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+
+        <TextView
+            android:id="@+id/txtPieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="46dp"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:text="name here"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/chart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android:lecho.lib.hellocharts.view.PieChartView
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="390dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:padding="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>
