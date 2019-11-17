@@ -164,9 +164,10 @@ public class Repository {
 			connect();
 		try {
 			var stmt = conn.prepareStatement("UPDATE bets SET offer = ?,demand = ? WHERE accountId=? AND betId=?");
-			stmt.setDouble(0, offer);
-			stmt.setDouble(1, demand);
-			stmt.setInt(acc, betid);
+			stmt.setDouble(1, offer);
+			stmt.setDouble(2, demand);
+			stmt.setInt(3, acc);
+			stmt.setInt(4, betid);
 			var res = stmt.executeQuery();
 			res.close();
 			stmt.close();
@@ -282,10 +283,10 @@ public class Repository {
 					int someBets = (int) Math.round(Math.random()*50000);
 					var stmt = conn.prepareStatement(
 							"INSERT INTO bets (betid,accountId) VALUES (?,?),(?,?)");
-					stmt.setInt(0,someBets);
-					stmt.setInt(1, accId);
-					stmt.setInt(2, someBets);
-					stmt.setInt(3, b);
+					stmt.setInt(1,someBets);
+					stmt.setInt(2, accId);
+					stmt.setInt(3, someBets);
+					stmt.setInt(4, b);
 					var res = stmt.execute();
 					stmt.close();
 					System.out.println("Bet " + someBets + " has been added from " + accId + " to " +b);
@@ -308,8 +309,8 @@ public class Repository {
 				else {
 					var stmt = conn.prepareStatement(
 							"UPDATE deals SET liked=False WHERE dealer=? AND dealed=?");
-					stmt.setInt(0,accId);
-					stmt.setInt(1, b);
+					stmt.setInt(1,accId);
+					stmt.setInt(2, b);
 					var res = stmt.execute();
 					stmt.close();
 				}
@@ -325,8 +326,8 @@ public class Repository {
 		try {
 			var stmt = conn.prepareStatement(
 							"SELECT * FROM pairs WHERE accountA = ? AND accountB = ?");
-			stmt.setInt(0,accA);
-			stmt.setInt(1,accB);
+			stmt.setInt(1,accA);
+			stmt.setInt(2,accB);
 			var res = stmt.executeQuery();
 			if(res.next())
 				return true;
@@ -384,7 +385,6 @@ public class Repository {
 		int a = Integer.parseInt(acc);
 		int d = Integer.parseInt(deal);
 
-		System.out.println("Start Adding Deal for Acc " + acc);
 		if(conn==null) {
 			System.out.println("Connection was null! Rebuilding it!");
 			connect();	
@@ -392,11 +392,11 @@ public class Repository {
 		}
 		try {
 			var stmt = conn.prepareStatement("INSERT INTO deals VALUES (?,?,?)");
-			System.out.println("PreparedStatement build from add deal ");
-			stmt.setInt(0, a);
-			stmt.setInt(1, d);
-			stmt.setBoolean(2, b);
-			System.out.println("Acc " + acc + " deal prep succeeded");
+			//System.out.println("PreparedStatement build from add deal ");
+			stmt.setInt(1, a);
+			stmt.setInt(2, d);
+			stmt.setBoolean(3, b);
+			//System.out.println("Acc " + acc + " deal prep succeeded");
 			var res = stmt.executeQuery();
 			res.close();
 			stmt.close();
