@@ -3,7 +3,7 @@
 
 <img src="/logo_dealmaker.png" width="300" height="300"/>
 
-A brand-new fin-tech approach to a match-making app. <img src="/logo_dealmaker.png" width="200" height="200"/>
+A brand-new fin-tech approach to a match-making app.
 Deal Maker takes away the awkwardness on discussing the touchy subject of personal finance in dating.
 
 Apart from the traditional matching criteria in main-stream dating apps (e.g. age / geo location), our matching algorithm bases on an overview of a users spending habits to determine the compatibility between other users on the platform.
