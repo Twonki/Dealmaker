@@ -308,7 +308,7 @@ public class Repository {
 			return;
 		if(conn==null)
 			connect();
-		try {
+		/*try {
 			/*for(int b : hits) {
 					var stmt = conn.prepareStatement(
 							"UPDATE deals SET liked=? WHERE dealer=? AND dealed=?");
@@ -317,10 +317,10 @@ public class Repository {
 					stmt.setInt(3, b);
 					stmt.execute();
 					stmt.close();
-			}*/
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static boolean hasBet(int accA, int accB) {
