@@ -45,4 +45,11 @@ ORDER BY accountId ASC;
 
 CREATE VIEW IF NOT EXISTS totalspending AS
 SELECT accountId, sum(amount) as totalamount
-FROM transactions
+FROM transactions;
+
+CREATE TABLE IF NOT EXISTS bets (
+	betid INTEGER PRIMARY KEY AUTOINCREMENT,
+	accountId INTEGER,
+	offer FLOAT,
+	demand FLOAT
+);
