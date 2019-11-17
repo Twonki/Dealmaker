@@ -2,6 +2,8 @@ package servlets;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import data.Match;
+import data.Repository;
 
 public class MatchServlet extends HttpServlet {
 
@@ -29,17 +32,24 @@ public class MatchServlet extends HttpServlet {
 
 		response.setContentType("application/json");
 		response.getOutputStream().println(json);
-		
 	}
 	
 	private List<Match> getBestMatches(String account){
-		
-		List<Match> matches = new LinkedList<Match>();
-		matches.add(Match.fakeMatch());
-		matches.add(Match.fakeMatch());
-		matches.add(Match.fakeMatch());
-		
-		return matches;
+		int acc = Integer.parseInt(account);
+		return Repository.getCategoryClosestNeighboors(acc)
+				.entrySet()
+				.stream()
+				.sorted((a,b)-> Double.compare(a.getValue(), b.getValue()))
+				.limit(5)
+				.map(e -> {
+					var m = new Match();
+					m.account = e.getKey()+"";
+					m.firstname = Repository.lookupFirstName(e.getKey());
+					m.score = e.getValue();
+					m.categories = Repository.getCategorySpendings(e.getKey());
+					return m;
+				})
+				.collect(Collectors.toList());
 	}
 	
 }

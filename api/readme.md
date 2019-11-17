@@ -16,7 +16,7 @@ then
 ## Check
 
 look at http://localhost:8080/dealmakerapi-0.0.1-SNAPSHOT/health
-
+ 
 ## Resources
 
 Where *XXX* is the AccountID

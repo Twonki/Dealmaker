@@ -46,13 +46,16 @@ public class DealServlet extends HttpServlet {
 		
 		String deal = request.getParameter("acc");
 		
-		addDeal(acc,deal);
+		if(request.getParameter("like").toLowerCase().equals("true") || request.getParameter("Like").toLowerCase().equals("true"))
+			addDeal(acc,deal,true);
+		else 
+			addDeal(acc,deal,false);
 		
 		response.setStatus(204);
 	}
 	
-	private void addDeal(String acc, String dealAcc) {
-		System.out.println("Recieved " + acc + " liked " + dealAcc);
+	private void addDeal(String acc, String dealAcc, boolean liked) {
+		System.out.println("Recieved " + acc + " liked " + dealAcc + " " + liked);
 	}
 	
 
