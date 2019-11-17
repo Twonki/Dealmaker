@@ -272,6 +272,8 @@ public class Repository {
 	}
 
 	public static void openBets(int accId, List<Integer> hits) {
+		if (hits.isEmpty())
+			return;
 		if(conn==null)
 			connect();
 		try {
@@ -299,6 +301,8 @@ public class Repository {
 	}
 
 	public static void closeDeals(int accId, List<Integer> hits) {
+		if (hits.isEmpty())
+			return;
 		if(conn==null)
 			connect();
 		try {

@@ -24,7 +24,7 @@ public class DealServlet extends HttpServlet {
 		
 		List<Integer> likes = Repository.getLikes(accId);
 		List<Integer> liked = Repository.getLiked(accId);
-		var hits = likes.stream().filter(x -> liked.contains(x)).collect(Collectors.toList());
+		var hits = likes.stream().filter(x -> liked.contains(x)).collect(Collectors.toSet()).stream().collect(Collectors.toList());
 		
 		Repository.openBets(accId,hits);
 		Repository.closeDeals(accId,hits);
