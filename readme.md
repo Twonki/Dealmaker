@@ -29,21 +29,25 @@ Obtain a Bearer token following the instructions stated in:
 https://developer.capitalone.co.uk/hackathon and paste into a key.txt file
 
 move **key.txt** file to "Dealmaker/preprocc/src/main/resources/key.txt"
-maven build with goals in **preprocc** "mvn clean package" then execute 
-```
- java -jar target/preprocc-1.0-SNAPSHOT-jar-with-dependencies.jar 
+maven build with goals in **preprocc** 'mvn clean package' then execute 
+```shell
+preprocess/target>java -jar target/preprocc-1.0-SNAPSHOT-jar-with-dependencies.jar 
 
 ```
 
-@Twonki CREATE MATCHING API
+To build the API, simply run:
+```shell
+dealmakerapi> mvn clean jetty:run
 ```
-HOW TO COMPILE?
 
+To host it somewhere more stable, you can use it with docker:
+```shell
+dealmakerapi> docker build . -t dealmakerapi
+dealmakerapi> docker run -p 8080:8080 dealmakerapi
 ```
 
-## Deployment
-
-@Twonki Add additional notes about how to deploy this on a live system
+The Docker image comes with *batteries included*, that is the Sqlite-Database. 
+There is no further setup needed, if the sample dataset is enough.  
 
 ## Built With
 
@@ -52,14 +56,12 @@ HOW TO COMPILE?
 * [Docker](https://www.docker.com) - Container for Sqlite database and matching API
 
 
-## Versioning
-@Twonki HELP? 
-
 ## Authors
 
-* **Leonhard Applis** **Morgan David** **Nicola Wong*** [HackNotts2019](https://www.hacknotts.com/)
+* **Morgan David**,**Leonhard Applis**,**Nicola Wong*** @[HackNotts2019](https://www.hacknotts.com/)
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## Acknowledgments
 
 * Capital One sponsoring HackNotts2019
+* UoN and the HackNotts-Staff for hosting a beautifull event!
