@@ -60,7 +60,7 @@ public class CapitalOneHttpClient {
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
              CloseableHttpResponse response = httpClient.execute(post)) {
 
-            System.out.println(EntityUtils.toString(response.getEntity()));
+            //System.out.println(EntityUtils.toString(response.getEntity()));
         }
     }
 
@@ -89,7 +89,7 @@ public class CapitalOneHttpClient {
                 JsonObject jo = (JsonObject)jsonParser.parse(result);
                 JsonArray accountsJA = jo.getAsJsonArray("Accounts");
 
-                System.out.println(result);
+                //System.out.println(result);
                 Type accountListType = new TypeToken<ArrayList<Account>>(){}.getType();
                 Gson gson = new Gson();
                 //JSON JsonObject to Java object
@@ -127,7 +127,7 @@ public class CapitalOneHttpClient {
                 JsonObject jo = (JsonObject)jsonParser.parse(result);
                 JsonArray trasnsactionsJA = jo.getAsJsonArray("Transactions");
 
-                System.out.println(result);
+                //System.out.println(result);
                 Type transListType = new TypeToken<ArrayList<Transaction>>(){}.getType();
                 Gson gson = new Gson();
                 //JSON JsonObject to Java object
@@ -143,25 +143,6 @@ public class CapitalOneHttpClient {
     }
 
 
-    private void sendPost() throws Exception {
-
-        HttpPost post = new HttpPost("https://httpbin.org/post");
-
-        // add request parameter, form parameters
-        List<NameValuePair> urlParameters = new ArrayList<>();
-        urlParameters.add(new BasicNameValuePair("username", "abc"));
-        urlParameters.add(new BasicNameValuePair("password", "123"));
-        urlParameters.add(new BasicNameValuePair("custom", "secret"));
-
-        post.setEntity(new UrlEncodedFormEntity(urlParameters));
-
-        try (CloseableHttpClient httpClient = HttpClients.createDefault();
-             CloseableHttpResponse response = httpClient.execute(post)) {
-
-            System.out.println(EntityUtils.toString(response.getEntity()));
-        }
-
-    }
 
 }
 

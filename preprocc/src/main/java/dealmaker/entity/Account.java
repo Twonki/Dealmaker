@@ -6,10 +6,13 @@ import java.util.List;
 
 public class Account {
     private String accountId;
+    private int accountId_int;
     private String firstname;
     private String phoneNumber;
     private String developerId;
+    //private int devid_int;
     private String uci;
+    private int uci_int;
     private int riskScore;
     private String currencyCode;
     private String productType;
@@ -36,6 +39,9 @@ public class Account {
     }
 
     public void update() throws Exception{
+        this.accountId_int = Integer.parseInt(accountId);
+        this.uci_int = Integer.parseInt(uci);
+        //this.devid_int = Integer.parseInt(developerId);
         this.age = MyUtil.getRandomNumberInRange(15,80);
         this.gender = MyUtil.getRandomGender();
         loadTransactions(5); //account has less than 1 transaction create 5
@@ -109,4 +115,18 @@ public class Account {
     public int getAge() {
         return age;
     }
-}
+    public int getAccountId_int(){
+        return accountId_int;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public String insertStatement(){
+        String params = accountId_int + ",\'"+firstname+"\'"+",\'"+lastname+"\',"+age+",\'"+gender+"\'"+",\'"+phoneNumber+"\'"+",\'"+developerId+"\',"+uci_int+
+                ","+riskScore+",\'"+currencyCode+"\'"+",\'"+productType+"\'"+",\'"+homeAddress+"\'";
+        return "insert into accounts(paramname,paramname,paramname) values("+params+");";
+
+
+    }}

@@ -19,6 +19,7 @@ public class Transaction {
     private double latitude;
     private double longitude;
     private String status;
+    private int accountId_int;
 
     private String catagory;
 
@@ -87,6 +88,14 @@ public class Transaction {
             e.printStackTrace();
         }
         this.catagory = MyUtil.randomAssignCatagory();
+        this.accountId_int = Integer.parseInt(accountUUID);
+    }
+
+    public String insertStatement(){
+        String params = "\'"+transactionUUID+"\'," +accountId_int+","+amount+",\'"+currency+"\',"+timestamp_date+","+latitude+","+longitude+
+                ",\'"+status+"\'"+",\'"+catagory+"\'";
+        return "insert into transactions values("+params+");";
+
     }
 
 

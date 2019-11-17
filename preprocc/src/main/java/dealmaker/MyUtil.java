@@ -1,5 +1,6 @@
 package dealmaker;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -39,6 +40,29 @@ public class MyUtil {
         setCatagories();
         int x = getRandomNumberInRange(0,7);
         return catagories.get(x);
+    }
+
+    public static String readsql(){
+        String fileAsString ="";
+        try {
+            InputStream is = new FileInputStream("src/main/resources/sql/CreateTables.sql");
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            try{ String line = buf.readLine();
+                StringBuilder sb = new StringBuilder();
+                while (line != null) {
+                    sb.append(line).append("\n");
+                    line = buf.readLine();
+                }
+
+                fileAsString = sb.toString();
+                System.out.println("sql : " + fileAsString);
+            }catch(IOException e2) {
+                e2.printStackTrace();
+            }
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        return fileAsString;
     }
 
 
