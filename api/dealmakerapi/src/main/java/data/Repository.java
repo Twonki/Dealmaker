@@ -397,8 +397,7 @@ public class Repository {
 			stmt.setInt(2, d);
 			stmt.setBoolean(3, b);
 			//System.out.println("Acc " + acc + " deal prep succeeded");
-			var res = stmt.executeQuery();
-			res.close();
+			stmt.execute();
 			stmt.close();
 			System.out.println("Acc " + acc + " deal has been added to db");
 		} catch (SQLException e) {
