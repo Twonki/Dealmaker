@@ -51,6 +51,8 @@ public class Repository {
 				fn = res.getString("firstname");
 			}
 			res.close();
+
+			mstmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,7 +128,8 @@ public class Repository {
 				spendings.put(acc, amt);
 			}
 			res.close();
-			 ;
+
+			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,6 +168,7 @@ public class Repository {
 			stmt.setInt(acc, betid);
 			var res = stmt.executeQuery();
 			res.close();
+			stmt.close();
 			System.out.println("Acc " + acc + " bet has been added to db");
 			
 		} catch (SQLException e) {
@@ -189,7 +193,7 @@ public class Repository {
 			var demandB = res.getDouble("demand");
 			
 			res.close();
-			
+			stmt.close();
 			return offerA>demandB && offerB>demandA;
 			
 		} catch (SQLException e) {
@@ -212,7 +216,7 @@ public class Repository {
 			var accB = res.getInt("accountId");
 			
 			res.close();
-			
+			stmt.close();
 			return Pair.with(accA, accB);
 			
 		} catch (SQLException e) {
@@ -233,7 +237,9 @@ public class Repository {
 			var res = stmt.executeQuery();
 			while (res.next()) {
 				results.add(res.getInt("dealer"));
-			}			
+			}	
+			res.close();
+			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -252,7 +258,10 @@ public class Repository {
 			var res = stmt.executeQuery();
 			while (res.next()) {
 				results.add(res.getInt("dealed"));
-			};			
+			};
+			
+			res.close();
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -266,7 +275,7 @@ public class Repository {
 		try {
 			for(int b : hits) {
 				if(hasBet(b,accId)) {
-					// do nuffing
+					System.out.println("There is a bet between " + accId + " and " + b);
 				}
 				else {
 					int someBets = (int) Math.round(Math.random()*50000);
@@ -277,6 +286,8 @@ public class Repository {
 					stmt.setInt(2, someBets);
 					stmt.setInt(3, b);
 					var res = stmt.execute();
+					stmt.close();
+					System.out.println("Bet " + someBets + " has been added from " + accId + " to " +b);
 				}
 			}
 		} catch (SQLException e) {
@@ -299,6 +310,7 @@ public class Repository {
 					stmt.setInt(0,accId);
 					stmt.setInt(1, b);
 					var res = stmt.execute();
+					stmt.close();
 				}
 			}
 		} catch (SQLException e) {
@@ -322,7 +334,7 @@ public class Repository {
 			e.printStackTrace();
 		}
 		finally{
-			
+		//	stmt.close();
 		}
 		
 		return false;
@@ -339,6 +351,8 @@ public class Repository {
 			while (res.next()) {
 				betids.add(res.getInt("betid"));
 			}
+			res.close();
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -355,7 +369,10 @@ public class Repository {
 			var res = stmt.executeQuery();
 			while (res.next()) {
 				betids.add(res.getInt("betid"));
-			} 			
+			} 	
+			res.close();
+			stmt.close();
+			System.out.println("Retrieved bets for " + acc);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -373,8 +390,10 @@ public class Repository {
 			stmt.setInt(0, a);
 			stmt.setInt(1, d);
 			stmt.setBoolean(2, b);
+			System.out.println("Acc " + acc + " deal prep succeeded");
 			var res = stmt.executeQuery();
 			res.close();
+			stmt.close();
 			System.out.println("Acc " + acc + " deal has been added to db");
 		} catch (SQLException e) {
 			System.out.println("Had troubles in add Deals SQL!");

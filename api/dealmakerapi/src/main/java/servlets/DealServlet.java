@@ -34,6 +34,7 @@ public class DealServlet extends HttpServlet {
 		json += "]";
 
 		System.out.println("Acc " + acc + " had " + likes.size() + " likes and liked " + liked.size());
+		System.out.println("Acc " + acc + " had " + hits.size() + " matching deals");
 		
 		
 		response.setContentType("application/json");
