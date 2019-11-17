@@ -307,17 +307,13 @@ public class Repository {
 			connect();
 		try {
 			for(int b : hits) {
-				if(hasBet(b,accId)) {
-					// do nuffing
-				}
-				else {
 					var stmt = conn.prepareStatement(
-							"UPDATE deals SET liked=False WHERE dealer=? AND dealed=?");
-					stmt.setInt(1,accId);
-					stmt.setInt(2, b);
-					var res = stmt.execute();
+							"UPDATE deals SET liked=? WHERE dealer=? AND dealed=?");
+					stmt.setBoolean(1,false);
+					stmt.setInt(2,accId);
+					stmt.setInt(3, b);
+					stmt.execute();
 					stmt.close();
-				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
