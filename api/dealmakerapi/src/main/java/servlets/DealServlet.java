@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.Repository;
+
 public class DealServlet extends HttpServlet {
 
 	@Override
@@ -16,11 +18,19 @@ public class DealServlet extends HttpServlet {
 		
 		String requestUrl = request.getRequestURI();
 		String acc = requestUrl.substring("/deals/".length());
+		var accId  =Integer.parseInt(acc);
 		
 		List<String> deals = getClosedDeals(acc);
 		
+		List<Integer> likes = Repository.getLikes(accId);
+		List<Integer> liked = Repository.getLiked(accId);
+		var hits = likes.stream().filter(x -> liked.contains(x)).collect(Collectors.toList());
+		
+		Repository.openBets(accId,hits);
+		Repository.closeDeals(accId,hits);
+		
 		String json = "[";
-		json += deals.stream().map(x -> "{\"acc\":\""+x+"\"}").collect(Collectors.joining(",\n"));
+		json += hits.stream().map(x -> "{\"acc\":\""+x+"\"}").collect(Collectors.joining(",\n"));
 		json += "]";
 
 		response.setContentType("application/json");

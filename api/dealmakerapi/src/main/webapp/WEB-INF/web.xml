@@ -22,6 +22,16 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>BetServlet</servlet-name>
+		<servlet-class>servlets.BetServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>BetServlet</servlet-name>
+		<url-pattern>/bets/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>MatchServlet</servlet-name>
 		<servlet-class>servlets.MatchServlet</servlet-class>
 	</servlet>
