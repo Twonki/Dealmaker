@@ -165,7 +165,8 @@ public class Repository {
 			stmt.setInt(acc, betid);
 			var res = stmt.executeQuery();
 			res.close();
-			 ;
+			System.out.println("Acc " + acc + " bet has been added to db");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,7 +189,6 @@ public class Repository {
 			var demandB = res.getDouble("demand");
 			
 			res.close();
-			 ;
 			
 			return offerA>demandB && offerB>demandA;
 			
@@ -212,7 +212,6 @@ public class Repository {
 			var accB = res.getInt("accountId");
 			
 			res.close();
-			 ;
 			
 			return Pair.with(accA, accB);
 			
@@ -361,5 +360,25 @@ public class Repository {
 			e.printStackTrace();
 		}
 		return betids;
+	}
+
+	public static void addDeal(String acc, String deal, boolean b) {
+		int a = Integer.parseInt(acc);
+		int d = Integer.parseInt(deal);
+		
+		if(conn==null)
+			connect();
+		try {
+			var stmt = conn.prepareStatement("INSERT INTO deals VALUES (?,?,?)");
+			stmt.setInt(0, a);
+			stmt.setInt(1, d);
+			stmt.setBoolean(2, b);
+			var res = stmt.executeQuery();
+			res.close();
+			System.out.println("Acc " + acc + " deal has been added to db");
+		} catch (SQLException e) {
+			System.out.println("Had troubles in add Deals SQL!");
+			e.printStackTrace();
+		}
 	}
 }

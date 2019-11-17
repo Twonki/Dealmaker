@@ -20,7 +20,7 @@ public class DealServlet extends HttpServlet {
 		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/deals/".length());
 		var accId  =Integer.parseInt(acc);
 		
-		List<String> deals = getClosedDeals(acc);
+		System.out.println("Acc " + acc + " refreshed his deals");
 		
 		List<Integer> likes = Repository.getLikes(accId);
 		List<Integer> liked = Repository.getLiked(accId);
@@ -33,19 +33,12 @@ public class DealServlet extends HttpServlet {
 		json += hits.stream().map(x -> "{\"acc\":\""+x+"\"}").collect(Collectors.joining(",\n"));
 		json += "]";
 
+		System.out.println("Acc " + acc + " had " + likes.size() + " likes and liked " + liked.size());
+		
+		
 		response.setContentType("application/json");
 		response.getOutputStream().println(json);
 		
-	}
-	
-	private List<String> getClosedDeals(String account){
-		List<String> deals = new LinkedList<String>();
-		
-		deals.add(Math.round(Math.random()*100)+"");
-		deals.add(Math.round(Math.random()*100)+"");
-		deals.add(Math.round(Math.random()*100)+"");
-		
-		return deals;
 	}
 	
 	@Override
@@ -55,18 +48,19 @@ public class DealServlet extends HttpServlet {
 		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/deals/".length());
 		
 		String deal = request.getParameter("acc");
-		
+		System.out.println("Recieved " + acc + " swiped " + deal + " with " + request.getParameter("like") );
 		if(request.getParameter("like").toLowerCase().equals("true") || request.getParameter("Like").toLowerCase().equals("true"))
-			addDeal(acc,deal,true);
-		else 
-			addDeal(acc,deal,false);
+			{
+			Repository.addDeal(acc,deal,true);
+			}
+		else {
+			Repository.addDeal(acc,deal,true);
+			System.out.println("acc" + acc + " swiped no like on " + "deal");
+		}
 		
 		response.setStatus(204);
 	}
 	
-	private void addDeal(String acc, String dealAcc, boolean liked) {
-		System.out.println("Recieved " + acc + " liked " + dealAcc + " " + liked);
-	}
 	
 
 }

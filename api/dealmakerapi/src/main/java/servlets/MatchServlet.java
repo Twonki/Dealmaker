@@ -23,7 +23,7 @@ public class MatchServlet extends HttpServlet {
 		
 		String requestUrl = request.getRequestURI();
 		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/matches/".length());
-		
+		System.out.println("Acc " + acc + " requested his matches");
 		List<Match> matches = getBestMatches(acc);
 		
 		String json = "[";
@@ -39,8 +39,9 @@ public class MatchServlet extends HttpServlet {
 		return Repository.getCategoryClosestNeighboors(acc)
 				.entrySet()
 				.stream()
-				.sorted((a,b)-> Double.compare(a.getValue(), b.getValue()))
-				.limit(5)
+				.filter(k -> k.getKey() != acc)
+				.sorted((a,b)-> Double.compare(b.getValue(),a.getValue()))
+				.limit(12)
 				.map(e -> {
 					var m = new Match();
 					m.account = e.getKey()+"";
