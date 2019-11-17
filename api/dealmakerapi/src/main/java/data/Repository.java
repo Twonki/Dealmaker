@@ -28,7 +28,8 @@ public class Repository {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            conn = DriverManager.getConnection(url);
+        	if(conn == null)
+        		conn = DriverManager.getConnection(url);
             
             System.out.println("Connection to SQLite has been established.");
             
@@ -384,10 +385,14 @@ public class Repository {
 		int d = Integer.parseInt(deal);
 
 		System.out.println("Start Adding Deal for Acc " + acc);
-		if(conn==null)
-			connect();
+		if(conn==null) {
+			System.out.println("Connection was null! Rebuilding it!");
+			connect();	
+			System.out.println("Reconnection worked from add deal ");
+		}
 		try {
 			var stmt = conn.prepareStatement("INSERT INTO deals VALUES (?,?,?)");
+			System.out.println("PreparedStatement build from add deal ");
 			stmt.setInt(0, a);
 			stmt.setInt(1, d);
 			stmt.setBoolean(2, b);

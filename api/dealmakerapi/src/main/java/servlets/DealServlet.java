@@ -51,12 +51,12 @@ public class DealServlet extends HttpServlet {
 		String deal = request.getParameter("acc");
 		if(Boolean.parseBoolean(request.getParameter("like")))
 		{
-			System.out.println("acc" + acc + " swiped like on " + "deal");
+			System.out.println("acc" + acc + " swiped like on " + deal);
 			Repository.addDeal(acc,deal,true);
 		}
 		else {
 			Repository.addDeal(acc,deal,true);
-			System.out.println("acc" + acc + " swiped no like on " + "deal");
+			System.out.println("acc" + acc + " swiped no like on " + deal);
 		}
 		
 		response.setStatus(204);
