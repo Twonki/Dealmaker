@@ -16,7 +16,7 @@ then
 ## Check
 
 look at http://localhost:8080/dealmakerapi-0.0.1-SNAPSHOT/health
-
+ 
 ## Resources
 
 Where *XXX* is the AccountID
@@ -31,4 +31,10 @@ Where *XXX* is the AccountID
 
 '/deals/XXX?acc=YYY&like=True' -> *Swipes Right* from XXX to YYY (XXX Likes YYY)
 
-'/deals/XXX?acc=YYY&like=False' -> *Swipes Left* from XXX to YYY (XXX DisLikes YYY)
+'put $ /deals/XXX?acc=YYY&like=False' -> *Swipes Left* from XXX to YYY (XXX DisLikes YYY)
+
+'get $ /bets/XXX' -> Gets an JSON with open and successfull bets
+
+'put $ /bets/XXX?betid=ZZZ&offer=123&demand=321' -> Enters the offer and demand into db
+
+Valid account: 73320507

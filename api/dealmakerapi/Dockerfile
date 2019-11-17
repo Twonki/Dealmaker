@@ -15,6 +15,9 @@ RUN mvn package verify
 
 FROM tomcat:9-jdk11-openjdk-slim
 
+RUN mkdir -p /usr/db/
+
+COPY --from=builder /app/dealMaker.db /usr/db/
 
 COPY --from=builder /app/target/dealmakerapi-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
 
