@@ -30,7 +30,7 @@ public class DealServlet extends HttpServlet {
 		Repository.closeDeals(accId,hits);
 		
 		String json = "[";
-		json += hits.stream().map(x -> "{\"acc\":\""+x+"\"}").collect(Collectors.joining(",\n"));
+		json += hits.stream().map(x->x+"").collect(Collectors.joining(","));
 		json += "]";
 
 		System.out.println("Acc " + acc + " had " + likes.size() + " likes and liked " + liked.size());
