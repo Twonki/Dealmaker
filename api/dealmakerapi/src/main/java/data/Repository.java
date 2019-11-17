@@ -382,7 +382,8 @@ public class Repository {
 	public static void addDeal(String acc, String deal, boolean b) {
 		int a = Integer.parseInt(acc);
 		int d = Integer.parseInt(deal);
-		
+
+		System.out.println("Start Adding Deal for Acc " + acc);
 		if(conn==null)
 			connect();
 		try {

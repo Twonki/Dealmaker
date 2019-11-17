@@ -49,11 +49,11 @@ public class DealServlet extends HttpServlet {
 		String acc = requestUrl.substring("/dealmakerapi-0.0.1-SNAPSHOT/deals/".length());
 		
 		String deal = request.getParameter("acc");
-		System.out.println("Recieved " + acc + " swiped " + deal + " with " + request.getParameter("like") );
-		if(request.getParameter("like").toLowerCase().equals("true") || request.getParameter("Like").toLowerCase().equals("true"))
-			{
+		if(Boolean.parseBoolean(request.getParameter("like")))
+		{
+			System.out.println("acc" + acc + " swiped like on " + "deal");
 			Repository.addDeal(acc,deal,true);
-			}
+		}
 		else {
 			Repository.addDeal(acc,deal,true);
 			System.out.println("acc" + acc + " swiped no like on " + "deal");
