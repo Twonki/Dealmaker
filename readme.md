@@ -28,42 +28,37 @@ Generating data:
 Obtain a Bearer token following the instructions stated in:
 https://developer.capitalone.co.uk/hackathon and paste into a key.txt file
 
-move key.txt file to > Dealmaker/preprocc/src/main/resources/key.txt
-maven build with goals in __preprocc__  mvn clean package" then 
-```execute java -jar target/preprocc-1.0-SNAPSHOT-jar-with-dependencies.jar ```
-
-CREATE MATCHING API
+move **key.txt** file to "Dealmaker/preprocc/src/main/resources/key.txt"
+maven build with goals in **preprocc** "mvn clean package" then execute 
 ```
-Give the example
+ java -jar target/preprocc-1.0-SNAPSHOT-jar-with-dependencies.jar 
 
+```
+
+@Twonki CREATE MATCHING API
+```
+HOW TO COMPILE?
+
+```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+@Twonki Add additional notes about how to deploy this on a live system
 
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management for Data Integration
 * [Gradle](https://gradle.org) - Dependency Management for Mobile App Component
-* [Docker] (https://www.docker.com) - Container for Sqlite database and matching API
+* [Docker](https://www.docker.com) - Container for Sqlite database and matching API
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+@Twonki HELP? 
 
 ## Authors
 
-* **Leonhard Applis** - *Morgan David* - [PurpleBooth](https://github.com/PurpleBooth)
-
+* **Leonhard Applis** **Morgan David** **Nicola Wong*** [HackNotts2019](https://www.hacknotts.com/)
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
