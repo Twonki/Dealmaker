@@ -234,8 +234,9 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT dealer FROM deals where dealed ="+accountId);
-			
+			var stmt = conn.prepareStatement("SELECT dealer FROM deals where dealed =? AND liked=?"); 
+				stmt.setInt(1, accountId); 
+				stmt.setBoolean(2,true);
 			var res = stmt.executeQuery();
 			while (res.next()) {
 				results.add(res.getInt("dealer"));
@@ -255,7 +256,9 @@ public class Repository {
 		if(conn==null)
 			connect();
 		try {
-			var stmt = conn.prepareStatement("SELECT dealed FROM deals where dealer ="+accountId);
+			var stmt = conn.prepareStatement("SELECT dealed FROM deals where dealer =? AND liked=?");
+			stmt.setInt(1, accountId);
+			stmt.setBoolean(2,true);
 			
 			var res = stmt.executeQuery();
 			while (res.next()) {
